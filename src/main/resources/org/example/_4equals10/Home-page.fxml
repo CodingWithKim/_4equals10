@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example._4equals10.LevelController">
+    <Tab text="Level 1">
+        <AnchorPane prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPaneBGI">
+            <VBox alignment="CENTER" layoutX="111.0" layoutY="64.0" prefHeight="240.0" prefWidth="380.0" spacing="20">
+                <HBox alignment="CENTER" spacing="20">
+                    <Label fx:id="number1" styleClass="StyledText1" text="4" />
+                    <Label fx:id="operator1" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number2" styleClass="StyledText1" text="3" />
+                    <Label fx:id="operator2" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number3" styleClass="StyledText1" text="2" />
+                    <Label fx:id="operator3" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number4" styleClass="StyledText1" text="1" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="20">
+                    <Button fx:id="plusButton" styleClass="StyledText2" text="+" />
+                    <Button fx:id="minusButton" styleClass="StyledText2" text="-" />
+                    <Button fx:id="multiplyButton" styleClass="StyledText2" text="*" />
+                    <Button fx:id="divideButton" styleClass="StyledText2" text="/" />
+                </HBox>
+                <Label fx:id="resultLabel" styleClass="StyledText3" text="Result: " />
+            </VBox>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Level 2">
+        <AnchorPane prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPaneBGI">
+            <VBox alignment="CENTER" layoutX="110.0" layoutY="66.0" prefHeight="240.0" prefWidth="380.0" spacing="20">
+                <HBox alignment="CENTER" spacing="20">
+                    <Label fx:id="number11" styleClass="StyledText1" text="3" />
+                    <Label fx:id="operator11" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number21" styleClass="StyledText1" text="7" />
+                    <Label fx:id="operator21" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number31" styleClass="StyledText1" text="1" />
+                    <Label fx:id="operator31" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number41" styleClass="StyledText1" text="9" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="20">
+                    <Button fx:id="plusButton1" styleClass="StyledText2" text="+" />
+                    <Button fx:id="minusButton1" styleClass="StyledText2" text="-" />
+                    <Button fx:id="multiplyButton1" styleClass="StyledText2" text="*" />
+                    <Button fx:id="divideButton1" styleClass="StyledText2" text="/" />
+                </HBox>
+                <Label fx:id="resultLabel1" styleClass="StyledText3" text="Result: " />
+            </VBox>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Level 3">
+        <AnchorPane prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPaneBGI">
+            <VBox alignment="CENTER" layoutX="110.0" layoutY="66.0" prefHeight="240.0" prefWidth="380.0" spacing="20">
+                <HBox alignment="CENTER" spacing="20">
+                    <Label fx:id="number12" styleClass="StyledText1" text="4" />
+                    <Label fx:id="operator12" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number22" styleClass="StyledText1" text="3" />
+                    <Label fx:id="operator22" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number32" styleClass="StyledText1" text="2" />
+                    <Label fx:id="operator32" styleClass="StyledText1" text=" " />
+                    <Label fx:id="number42" styleClass="StyledText1" text="1" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="20">
+                    <Button fx:id="plusButton2" styleClass="StyledText2" text="+" />
+                    <Button fx:id="minusButton2" styleClass="StyledText2" text="-" />
+                    <Button fx:id="multiplyButton2" styleClass="StyledText2" text="*" />
+                    <Button fx:id="divideButton2" styleClass="StyledText2" text="/" />
+                </HBox>
+                <Label fx:id="resultLabel2" styleClass="StyledText3" text="Result: " />
+            </VBox>
+        </AnchorPane>
+    </Tab>
+   <Tab text="EXTRA">
+         <AnchorPane prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPaneBGI">
+               <ChoiceBox fx:id="choiceBox" layoutX="225.0" layoutY="21.0" prefWidth="150.0" />
+               <VBox alignment="CENTER" layoutX="110.0" layoutY="66.0" prefHeight="240.0" prefWidth="380.0" spacing="20">
+                     <HBox alignment="CENTER" spacing="20">
+                           <Label fx:id="number13" styleClass="StyledText1" text=" " />
+                           <Label fx:id="operator13" styleClass="StyledText1" text=" " />
+                           <Label fx:id="number23" styleClass="StyledText1" text=" " />
+                           <Label fx:id="operator23" styleClass="StyledText1" text=" " />
+                           <Label fx:id="number33" styleClass="StyledText1" text=" " />
+                           <Label fx:id="operator33" styleClass="StyledText1" text=" " />
+                           <Label fx:id="number43" styleClass="StyledText1" text=" " />
+                     </HBox>
+                     <HBox alignment="CENTER" spacing="20">
+                           <Button fx:id="plusButton3" styleClass="StyledText2" text="+" />
+                           <Button fx:id="minusButton3" styleClass="StyledText2" text="-" />
+                           <Button fx:id="multiplyButton3" styleClass="StyledText2" text="*" />
+                           <Button fx:id="divideButton3" styleClass="StyledText2" text="/" />
+                     </HBox>
+                     <Label fx:id="resultLabel3" styleClass="StyledText3" text="Result: " />
+               </VBox>
+         </AnchorPane>
+   </Tab>
+   <Tab text="Online Solver">
+         <AnchorPane prefHeight="180.0" prefWidth="200.0" styleClass="AnchorPaneBGI">
+               <WebView fx:id="solver" layoutY="-2.0" prefHeight="374.0" prefWidth="600.0" />
+         </AnchorPane>
+   </Tab>
+</TabPane>
