@@ -19,6 +19,21 @@ public class LevelController {
     @FXML
     private TabPane tabPane;
 
+    @FXML
+    private Button startGameButton;
+
+    @FXML
+    private Tab level1Tab;
+
+    @FXML
+    private Tab level2Tab;
+
+    @FXML
+    private Tab level3Tab;
+
+    @FXML
+    private Tab extraLevelTab;
+
     // Level 1
     @FXML
     private Label number1, operator1, number2, operator2, number3, operator3, number4;
@@ -135,9 +150,12 @@ public class LevelController {
         setupNumberDragAndDrop(number33);
         setupNumberDragAndDrop(number43);
 
-        tabPane.getTabs().get(1).setDisable(true);
-        tabPane.getTabs().get(2).setDisable(true);
-        tabPane.getTabs().get(3).setDisable(true);
+        level1Tab.setDisable(true);
+        level2Tab.setDisable(true);
+        level3Tab.setDisable(true);
+        extraLevelTab.setDisable(true);
+
+        startGameButton.setOnAction(event -> unlockLevel1());
     }
 
     private void setupChoiceBox(){
@@ -161,6 +179,11 @@ public class LevelController {
                 }
             }
         });
+    }
+
+    private void unlockLevel1() {
+        level1Tab.setDisable(false);
+        tabPane.getSelectionModel().select(level1Tab);
     }
     @FXML
     private void handleDragDetected(javafx.scene.input.MouseEvent event) {
@@ -234,11 +257,13 @@ public class LevelController {
     private void handleLevelCompletion(){
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab.getText().equals("Level 1")) {
-            tabPane.getTabs().get(1).setDisable(false); // Enable Level 2 tab
+            tabPane.getTabs().get(2).setDisable(false); // Enable Level 2 tab
         } else if (selectedTab.getText().equals("Level 2")) {
-            tabPane.getTabs().get(2).setDisable(false); // Enable Level 3 tab
+            tabPane.getTabs().get(3).setDisable(false); // Enable Level 3 tab
         } else if (selectedTab.getText().equals("Level 3")){
-            tabPane.getTabs().get(3).setDisable(false);
+            tabPane.getTabs().get(4).setDisable(false);
+        } else {
+            tabPane.getTabs().get(5).setDisable(false);
         }
     }
 
