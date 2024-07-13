@@ -275,56 +275,11 @@ public class LevelController {
         }
     }
 
-    // Apply the evaluation logic to each level
-    private void evaluateExpression() {
-        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
-        if (selectedTab.getText().equals("Level 1")) {
-            evaluateExpressionForLevel(number1, operator1, number2, operator2, number3, operator3, number4, resultLabel);
-        } else if (selectedTab.getText().equals("Level 2")) {
-            evaluateExpressionForLevel(number11, operator11, number21, operator21, number31, operator31, number41, resultLabel1);
-        } else if (selectedTab.getText().equals("Level 3")) {
-            evaluateExpressionForLevel(number12, operator12, number22, operator22, number32, operator32, number42, resultLabel2);
-        } else if (selectedTab.getText().equals("EXTRA")) {
-            evaluateExpressionForLevel(number13, operator13, number23, operator23, number33, operator33, number43, resultLabel3);
-        }
-    }
-
-    // Evaluate Logic (Main)
-    private void evaluateExpressionForLevel(Label num1, Label op1, Label num2, Label op2, Label num3, Label op3, Label num4, Label resultLabel) {
-        String[] operators = {op1.getText(), op2.getText(), op3.getText()};
-        if (isExpressionComplete(operators)) {
-            try {
-                String expression = num1.getText() + op1.getText() + num2.getText() + op2.getText() + num3.getText() + op3.getText() + num4.getText();
-                double result = evaluateMathExpression(expression);
-                resultLabel.setText("Result: " + df.format(result));
-                if (Objects.equals(resultLabel.getText(), "Result: 10.00")){ // If the result equals 10, play a sound and enable next level
-                    solveSound.play();
-                    handleLevelCompletion();
-                } else {
-                    incorrectSound.play();
-                }
-            } catch (Exception e) {
-                resultLabel.setText("Error");
-            }
-        }
-    }
-
-    private boolean isExpressionComplete(String[] operators) {
-        for (String operator : operators) {
-            if (operator.trim().isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Method to evaluate the Math Expression
-    private double evaluateMathExpression(String expression) {
-        // Convert infix expression to postfix using Shunting Yard algorithm
-        String postfix = infixToPostfix(expression);
-
-        // Evaluate postfix expression
-        return evaluatePostfix(postfix);
+    // Setup web view for the online solver tab
+    private void setupWebView() {
+        WebEngine engine = solver.getEngine();
+        engine.load("https://eigilnikolajsen.dk/4is10-solver/");
+        solver.setZoom(0.75);
     }
 
     // Convert infix expression to postfix
@@ -381,6 +336,58 @@ public class LevelController {
         return stack.pop();
     }
 
+    // Method to evaluate the Math Expression
+    private double evaluateMathExpression(String expression) {
+        // Convert infix expression to postfix using Shunting Yard algorithm
+        String postfix = infixToPostfix(expression);
+
+        // Evaluate postfix expression
+        return evaluatePostfix(postfix);
+    }
+
+    // Evaluate Logic (Main)
+    private void evaluateExpressionForLevel(Label num1, Label op1, Label num2, Label op2, Label num3, Label op3, Label num4, Label resultLabel) {
+        String[] operators = {op1.getText(), op2.getText(), op3.getText()};
+        if (isExpressionComplete(operators)) {
+            try {
+                String expression = num1.getText() + op1.getText() + num2.getText() + op2.getText() + num3.getText() + op3.getText() + num4.getText();
+                double result = evaluateMathExpression(expression);
+                resultLabel.setText("Result: " + df.format(result));
+                if (Objects.equals(resultLabel.getText(), "Result: 10.00")){ // If the result equals 10, play a sound and enable next level
+                    solveSound.play();
+                    handleLevelCompletion();
+                } else {
+                    incorrectSound.play();
+                }
+            } catch (Exception e) {
+                resultLabel.setText("Error");
+            }
+        }
+    }
+
+    private boolean isExpressionComplete(String[] operators) {
+        for (String operator : operators) {
+            if (operator.trim().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Apply the evaluation logic to each level
+    private void evaluateExpression() {
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab.getText().equals("Level 1")) {
+            evaluateExpressionForLevel(number1, operator1, number2, operator2, number3, operator3, number4, resultLabel);
+        } else if (selectedTab.getText().equals("Level 2")) {
+            evaluateExpressionForLevel(number11, operator11, number21, operator21, number31, operator31, number41, resultLabel1);
+        } else if (selectedTab.getText().equals("Level 3")) {
+            evaluateExpressionForLevel(number12, operator12, number22, operator22, number32, operator32, number42, resultLabel2);
+        } else if (selectedTab.getText().equals("EXTRA")) {
+            evaluateExpressionForLevel(number13, operator13, number23, operator23, number33, operator33, number43, resultLabel3);
+        }
+    }
+
     // Update number labels for the EXTRA level
     private void updateExtraNumbers(int num1, int num2, int num3, int num4) {
         number13.setText(String.valueOf(num1));
@@ -395,12 +402,5 @@ public class LevelController {
 
         // Reset Result Label Content
         resultLabel3.setText("Result: ");
-    }
-
-    // Setup web view for the online solver tab
-    private void setupWebView() {
-        WebEngine engine = solver.getEngine();
-        engine.load("https://eigilnikolajsen.dk/4is10-solver/");
-        solver.setZoom(0.75);
     }
 }
