@@ -16,25 +16,21 @@ import java.util.*;
 
 public class LevelController {
 
+    // FXML UI elements
     @FXML
     private TabPane tabPane;
-
     @FXML
     private Button startGameButton;
-
     @FXML
     private Tab level1Tab;
-
     @FXML
     private Tab level2Tab;
-
     @FXML
     private Tab level3Tab;
-
     @FXML
     private Tab extraLevelTab;
 
-    // Level 1
+    // Level 1 UI elements
     @FXML
     private Label number1, operator1, number2, operator2, number3, operator3, number4;
     @FXML
@@ -42,7 +38,7 @@ public class LevelController {
     @FXML
     private Label resultLabel;
 
-    // Level 2
+    // Level 2 UI elements
     @FXML
     private Label number11, operator11, number21, operator21, number31, operator31, number41;
     @FXML
@@ -50,7 +46,7 @@ public class LevelController {
     @FXML
     private Label resultLabel1;
 
-    // Level 3
+    // Level 3 UI elements
     @FXML
     private Label number12, operator12, number22, operator22, number32, operator32, number42;
     @FXML
@@ -60,7 +56,7 @@ public class LevelController {
     @FXML
     private WebView solver;
 
-    //EXTRA Level
+    // EXTRA Level UI elements
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
@@ -72,7 +68,7 @@ public class LevelController {
     @FXML
     private Label resultLabel3;
 
-
+    // Media for background music and sound effects
     private MediaPlayer backgroundMusic;
     private AudioClip effectSound;
     private AudioClip solveSound;
@@ -81,9 +77,12 @@ public class LevelController {
 
     @FXML
     public void initialize() {
+        // Load sound effects
         effectSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/org/example/_4equals10/EffectSound.mp3")).toExternalForm());
         solveSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/org/example/_4equals10/nice.mp3")).toExternalForm());
         incorrectSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/org/example/_4equals10/nope.mp3")).toExternalForm());
+
+        // Load and play background music
         try {
             Media media = new Media(Objects.requireNonNull(getClass().getResource("/org/example/_4equals10/BackgroundMusic.mp3")).toExternalForm());
             backgroundMusic = new MediaPlayer(media);
@@ -95,41 +94,42 @@ public class LevelController {
             System.out.println("Background Music failed to load!");
         }
 
+        // Setup initial configurations for the game
         setupWebView();
         setupChoiceBox();
 
+        // Setup drag-and-drop functionality for Level 1 operators
         setupDragAndDrop(plusButton);
         setupDragAndDrop(minusButton);
         setupDragAndDrop(multiplyButton);
         setupDragAndDrop(divideButton);
-
         setupDropTarget(operator1);
         setupDropTarget(operator2);
         setupDropTarget(operator3);
 
+        // Setup drag-and-drop functionality for Level 2 operators
         setupDragAndDrop(plusButton1);
         setupDragAndDrop(minusButton1);
         setupDragAndDrop(multiplyButton1);
         setupDragAndDrop(divideButton1);
-
         setupDropTarget(operator11);
         setupDropTarget(operator21);
         setupDropTarget(operator31);
 
+        // Setup drag-and-drop functionality for Level 3 operators
         setupDragAndDrop(plusButton2);
         setupDragAndDrop(minusButton2);
         setupDragAndDrop(multiplyButton2);
         setupDragAndDrop(divideButton2);
-
         setupDropTarget(operator12);
         setupDropTarget(operator22);
         setupDropTarget(operator32);
 
+        // Setup drag-and-drop functionality for EXTRA level operators
         setupDragAndDrop(plusButton3);
         setupDragAndDrop(minusButton3);
         setupDragAndDrop(multiplyButton3);
         setupDragAndDrop(divideButton3);
-
         setupDropTarget(operator13);
         setupDropTarget(operator23);
         setupDropTarget(operator33);
@@ -150,18 +150,21 @@ public class LevelController {
         setupNumberDragAndDrop(number33);
         setupNumberDragAndDrop(number43);
 
+        // Disable all level tabs initially
         level1Tab.setDisable(true);
         level2Tab.setDisable(true);
         level3Tab.setDisable(true);
         extraLevelTab.setDisable(true);
 
+        // Set action for start game button to unlock Level 1
         startGameButton.setOnAction(event -> unlockLevel1());
     }
 
+    // Setup choice box for EXTRA level
     private void setupChoiceBox(){
         choiceBox.getItems().addAll("Extra 1", "Extra 2", "Extra 3"
         );
-
+        // Update numbers based on the selected extra challenge
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 switch (newValue) {
@@ -181,10 +184,13 @@ public class LevelController {
         });
     }
 
+    // Unlock Level 1 and switch to it
     private void unlockLevel1() {
         level1Tab.setDisable(false);
         tabPane.getSelectionModel().select(level1Tab);
     }
+
+    // Handle drag detected event for operators
     @FXML
     private void handleDragDetected(javafx.scene.input.MouseEvent event) {
         Button sourceButton = (Button) event.getSource();
@@ -195,10 +201,12 @@ public class LevelController {
         event.consume();
     }
 
+    // Setup drag-and-drop for buttons (operators)
     private void setupDragAndDrop(Button button) {
         button.setOnDragDetected(this::handleDragDetected);
     }
 
+    // Setup drop target for labels (operators)
     private void setupDropTarget(Label label) {
         label.setOnDragOver(event -> {
             if (event.getGestureSource() != label && event.getDragboard().hasString()) {
@@ -221,6 +229,7 @@ public class LevelController {
         });
     }
 
+    // Setup drag-and-drop for number labels (swapping)
     private void setupNumberDragAndDrop(Label label) {
         label.setOnDragDetected(event -> {
             Dragboard db = label.startDragAndDrop(TransferMode.MOVE);
@@ -254,19 +263,19 @@ public class LevelController {
         });
     }
 
+    // Handle level completion and unlock next level
     private void handleLevelCompletion(){
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab.getText().equals("Level 1")) {
             tabPane.getTabs().get(2).setDisable(false); // Enable Level 2 tab
         } else if (selectedTab.getText().equals("Level 2")) {
             tabPane.getTabs().get(3).setDisable(false); // Enable Level 3 tab
-        } else if (selectedTab.getText().equals("Level 3")){
-            tabPane.getTabs().get(4).setDisable(false);
         } else {
-            tabPane.getTabs().get(5).setDisable(false);
+            tabPane.getTabs().get(4).setDisable(false); // Enable Level EXTRA tab
         }
     }
 
+    // Apply the evaluation logic to each level
     private void evaluateExpression() {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab.getText().equals("Level 1")) {
@@ -280,6 +289,7 @@ public class LevelController {
         }
     }
 
+    // Evaluate Logic (Main)
     private void evaluateExpressionForLevel(Label num1, Label op1, Label num2, Label op2, Label num3, Label op3, Label num4, Label resultLabel) {
         String[] operators = {op1.getText(), op2.getText(), op3.getText()};
         if (isExpressionComplete(operators)) {
@@ -287,7 +297,7 @@ public class LevelController {
                 String expression = num1.getText() + op1.getText() + num2.getText() + op2.getText() + num3.getText() + op3.getText() + num4.getText();
                 double result = evaluateMathExpression(expression);
                 resultLabel.setText("Result: " + df.format(result));
-                if (Objects.equals(resultLabel.getText(), "Result: 10.00")){
+                if (Objects.equals(resultLabel.getText(), "Result: 10.00")){ // If the result equals 10, play a sound and enable next level
                     solveSound.play();
                     handleLevelCompletion();
                 } else {
@@ -308,6 +318,7 @@ public class LevelController {
         return true;
     }
 
+    // Method to evaluate the Math Expression
     private double evaluateMathExpression(String expression) {
         // Convert infix expression to postfix using Shunting Yard algorithm
         String postfix = infixToPostfix(expression);
@@ -316,6 +327,7 @@ public class LevelController {
         return evaluatePostfix(postfix);
     }
 
+    // Convert infix expression to postfix
     private String infixToPostfix(String expression) {
         StringBuilder output = new StringBuilder();
         Stack<Character> operators = new Stack<>();
@@ -339,6 +351,7 @@ public class LevelController {
         return output.toString();
     }
 
+    // Check the precedence of operators
     private int precedence(char operator) {
         return switch (operator) {
             case '+', '-' -> 1;
@@ -347,6 +360,7 @@ public class LevelController {
         };
     }
 
+    // Evaluate postfix expression
     private double evaluatePostfix(String postfix) {
         Stack<Double> stack = new Stack<>();
 
@@ -367,21 +381,23 @@ public class LevelController {
         return stack.pop();
     }
 
+    // Update number labels for the EXTRA level
     private void updateExtraNumbers(int num1, int num2, int num3, int num4) {
         number13.setText(String.valueOf(num1));
         number23.setText(String.valueOf(num2));
         number33.setText(String.valueOf(num3));
         number43.setText(String.valueOf(num4));
 
-        // 清空操作符标签
+        // Clear Operator Content
         operator13.setText(" ");
         operator23.setText(" ");
         operator33.setText(" ");
 
-        // 清空结果标签
+        // Reset Result Label Content
         resultLabel3.setText("Result: ");
     }
 
+    // Setup web view for the online solver tab
     private void setupWebView() {
         WebEngine engine = solver.getEngine();
         engine.load("https://eigilnikolajsen.dk/4is10-solver/");

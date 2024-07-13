@@ -1,3 +1,4 @@
+// Get Fonts from google fonts and import into the css sheet
 @import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Pixelify+Sans:wght@400..700&display=swap');
 
 .StyledText1 {
